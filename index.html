@@ -457,4 +457,13 @@
             const btn = document.getElementById('themeBtn');
             
             if (currentTheme === 'dark') {
-                document.body.removeAttribute('
+                // Remove the dark theme attribute to return to light mode
+                document.body.removeAttribute('data-theme');
+                btn.textContent = '🌙 Switch to Dark Mode';
+            } else {
+                // Add the dark theme attribute
+                document.body.setAttribute('data-theme', 'dark');
+                btn.textContent = '☀️ Switch to Light Mode';
+            }
+        }
+    </script>
