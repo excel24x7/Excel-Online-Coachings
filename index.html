@@ -2,127 +2,459 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Elite Online Coaching</title>
-</head>
-<body style="background-color: #f4f7f6; font-family: Arial, sans-serif; color: #333333; margin: 0; padding: 20px;">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Online Coaching - Premium Global Mentorship</title>
+    
+    <style>
+        /* Design Tokens & CSS Variables */
+        :root {
+            --bg-body: #f1f5f9;
+            --bg-pattern: 
+                radial-gradient(at 0% 0%, rgba(147, 197, 253, 0.4) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(196, 181, 253, 0.45) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(252, 165, 165, 0.3) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(110, 231, 183, 0.3) 0px, transparent 50%);
+            --panel-bg: rgba(255, 255, 255, 0.85);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --primary: #107c41;
+            --primary-glow: rgba(16, 124, 65, 0.15);
+            --accent: #16a34a;
+            --card-border: rgba(226, 232, 240, 0.8);
+            --shadow-md: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 8px 15px -6px rgba(0, 0, 0, 0.05);
+            --radius: 16px;
+            --blur-strength: 12px;
+        }
 
-    <!-- Header Section with Linked Logo and Navigation -->
-    <header style="background-color: #1a365d; color: #ffffff; padding: 30px 40px; border-radius: 8px;">
-        <h1 style="margin: 0; font-size: 36px; text-align: center;">
-            <a href="coaching.html" style="color: #ffffff; text-decoration: none;">Excel Online Coaching</a>
-        </h1>
-        <p style="margin: 10px 0 20px 0; font-size: 18px; color: #cbd5e1; text-align: center;">Transform your skills from the comfort of your home.</p>
+        /* Dark Mode Settings */
+        [data-theme="dark"] {
+            --bg-body: #090d16;
+            --bg-pattern: 
+                radial-gradient(at 0% 0%, rgba(16, 124, 65, 0.2) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(76, 29, 149, 0.45) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(153, 27, 27, 0.2) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(6, 78, 59, 0.2) 0px, transparent 50%);
+            --panel-bg: rgba(17, 24, 39, 0.8);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #4ade80;
+            --primary-glow: rgba(74, 222, 128, 0.2);
+            --accent: #4ade80;
+            --card-border: rgba(31, 41, 55, 0.7);
+            --shadow-md: 0 10px 30px -5px rgba(0, 0, 0, 0.4), 0 8px 15px -6px rgba(0, 0, 0, 0.4);
+        }
+
+        html { scroll-behavior: smooth; }
         
-        <!-- Navigation Bar -->
-        <nav style="text-align: center; background-color: #2b6cb0; padding: 10px; border-radius: 4px;">
-            <a href="#about" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold;">About</a>
-            <a href="#programs" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold;">Programs</a>
-            <a href="#pricing" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold;">Pricing</a>
-            <a href="#contact" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold;">Book Free Session</a>
+        body {
+            background-color: var(--bg-body);
+            background-image: var(--bg-pattern);
+            background-size: 100% 150%; 
+            background-repeat: no-repeat;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        .scrolling-header {
+            position: relative;
+            z-index: 1000;
+            background: linear-gradient(135deg, #107c41 0%, #1f4e37 100%); 
+            color: #ffffff;
+            padding: 35px 20px;
+            border-radius: var(--radius);
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(16, 124, 65, 0.15);
+            margin-bottom: 35px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            margin: 0 12px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.2s ease, transform 0.2s ease;
+            display: inline-block;
+        }
+        .nav-link:hover { 
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .theme-toggle-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            margin-top: 15px;
+            transition: background 0.2s ease;
+        }
+        .theme-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        section {
+            background-color: var(--panel-bg);
+            backdrop-filter: blur(var(--blur-strength));
+            -webkit-backdrop-filter: blur(var(--blur-strength));
+            padding: 40px;
+            margin-bottom: 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--card-border);
+            transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        /* Pure CSS Excel Interactive Component */
+        .excel-box {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            text-align: left;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        [data-theme="dark"] .excel-box {
+            background: #1e293b;
+            border-color: #334155;
+        }
+        .excel-bar {
+            background: #107c41;
+            color: white;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+        .excel-grid {
+            display: grid;
+            grid-template-columns: 30px repeat(3, 1fr);
+            font-size: 11px;
+            color: #475569;
+        }
+        [data-theme="dark"] .excel-grid { color: #cbd5e1; }
+        .excel-cell {
+            padding: 6px;
+            border-bottom: 1px solid #e2e8f0;
+            border-right: 1px solid #e2e8f0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        [data-theme="dark"] .excel-cell { border-color: #334155; }
+        .excel-header-cell {
+            background: #f1f5f9;
+            font-weight: bold;
+            text-align: center;
+        }
+        [data-theme="dark"] .excel-header-cell { background: #334155; }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            margin-top: 25px;
+        }
+
+        .program-card {
+            border: 1px solid var(--card-border);
+            padding: 30px 25px;
+            border-radius: 14px;
+            text-align: center;
+            background-color: var(--panel-bg);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.01);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .program-card:hover {
+            transform: translateY(-8px);
+            border-color: #107c41;
+            box-shadow: 0 20px 30px rgba(16, 124, 65, 0.08);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            box-sizing: border-box;
+            background-color: rgba(0, 0, 0, 0.02);
+            color: var(--text-main);
+            font-size: 14px;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+            outline: none;
+        }
+        [data-theme="dark"] .form-input { background-color: rgba(255, 255, 255, 0.03); }
+        .form-input:focus {
+            border-color: #107c41;
+            background-color: var(--panel-bg);
+            box-shadow: 0 0 0 4px rgba(16, 124, 65, 0.15);
+        }
+
+        .view-btn {
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            display: inline-block;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+        .view-btn:hover {
+            transform: translateY(-1px);
+            opacity: 0.95;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #107c41 0%, #1f4e37 100%);
+            color: white;
+            padding: 16px 28px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            box-shadow: 0 10px 20px rgba(16, 124, 65, 0.2);
+            transition: transform 0.1s ease, box-shadow 0.2s ease;
+        }
+        .submit-btn:hover { box-shadow: 0 12px 24px rgba(16, 124, 65, 0.3); }
+        .submit-btn:active { transform: scale(0.99); }
+    </style>
+</head>
+<body>
+
+    <!-- Upper Banner Header -->
+    <header class="scrolling-header">
+        <div style="background-color: #ef4444; color: white; display: inline-block; padding: 6px 14px; font-size: 11px; font-weight: bold; border-radius: 20px; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(239,68,68,0.25);">
+            📊 Specialization: Advanced Formulas & Macros
+        </div>
+        <h1 style="margin: 0 0 8px 0; font-size: 40px; font-weight: 800; letter-spacing: -1px;">Excel Online Coaching</h1>
+        <p style="margin: 0 0 25px 0; font-size: 18px; color: #cbd5e1; font-weight: 300;">Master dashboards, data sheets, and workflows from home.</p>
+        
+        <nav style="display: block; margin-bottom: 5px;">
+            <a href="#about" class="nav-link">About</a>
+            <a href="#programs" class="nav-link">Programs</a>
+            <a href="#faq" class="nav-link">FAQs</a>
+            <a href="#pricing" class="nav-link">Pricing</a>
+            <a href="#contact" class="nav-link">Book Free Session</a>
         </nav>
+
+        <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn">🌙 Switch to Dark Mode</button>
     </header>
 
-    <!-- Main Container -->
-    <main style="max-width: 800px; margin: 20px auto;">
+    <!-- Main Content Layout -->
+    <main style="max-width: 900px; margin: 0 auto;">
 
-        <!-- About Section -->
-        <section id="about" style="background-color: #ffffff; padding: 25px; margin-bottom: 20px; border-radius: 8px; border-left: 5px solid #3182ce;">
-            <h2 style="color: #1a365d; margin-top: 0;">Why Choose Our Coaching?</h2>
-            <p style="line-height: 1.6;">We provide personalized, one-on-one digital mentoring tailored to your specific goals. Whether you want to learn coding, business strategy, or fitness, our expert coaches are here to guide you step-by-step.</p>
-        </section>
+        <!-- About Section with the Unbreakable CSS Data Visualization Box -->
+        <section id="about" style="border-left: 6px solid #107c41;">
+            <h2 style="color: #107c41; margin-top: 0; font-size: 26px; font-weight: 800;">Why Choose Our Coaching?</h2>
+            
+            <div style="color: #f59e0b; font-size: 20px; margin-bottom: 20px;">
+                ⭐⭐⭐⭐⭐ <span style="color: var(--text-muted); font-size: 14px; font-weight: 500; margin-left: 8px;">(4.9/5 rating from 200+ global analysts)</span>
+            </div>
 
-        <!-- Services Section -->
-        <section id="programs" style="background-color: #ffffff; padding: 25px; margin-bottom: 20px; border-radius: 8px;">
-            <h2 style="color: #1a365d; margin-top: 0;">Our Coaching Programs</h2>
-            <ul style="padding-left: 20px; line-height: 1.8;">
-                <li style="margin-bottom: 10px;"><strong style="color: #2b6cb0;">1-on-1 Mentorship:</strong> Weekly live video calls and direct messaging access.</li>
-                <li style="margin-bottom: 10px;"><strong style="color: #2b6cb0;">Group Bootcamps:</strong> Collaborative interactive learning with peers.</li>
-                <li style="margin-bottom: 10px;"><strong style="color: #2b6cb0;">Self-Paced Courses:</strong> High-quality video modules and downloadable workbooks.</li>
-            </ul>
-        </section>
-
-               <!-- Pricing Section with View Links -->
-        <section id="pricing" style="background-color: #ffffff; padding: 25px; margin-bottom: 20px; border-radius: 8px;">
-            <h2 style="color: #1a365d; margin-top: 0;">Pricing Plans</h2>
-            <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
-                <tr style="background-color: #2b6cb0; color: #ffffff; text-align: left;">
-                    <th style="padding: 12px; border: 1px solid #e2e8f0;">Plan</th>
-                    <th style="padding: 12px; border: 1px solid #e2e8f0;">Features</th>
-                    <th style="padding: 12px; border: 1px solid #e2e8f0;">Price</th>
-                    <th style="padding: 12px; border: 1px solid #e2e8f0;">Action</th>
-                </tr>
-                <tr style="background-color: #f7fafc;">
-                    <td style="padding: 12px; border: 1px solid #e2e8f0; font-weight: bold;">Basic</td>
-                    <td style="padding: 12px; border: 1px solid #e2e8f0;">Access to video library + monthly Q&A</td>
-                    <td style="padding: 12px; border: 1px solid #e2e8f0; color: #2b6cb0; font-weight: bold;">$29/mo</td>
-                    <td style="padding: 12px; border: 1px solid #e2e8f0;">
-                        <!-- Link points to #basic-details down below -->
-                        <a href="#basic-details" style="background-color: #2b6cb0; color: white; padding: 6px 12px; text-decoration: none; border-radius: 4px; font-size: 14px; font-weight: bold; display: inline-block;">View Basic</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="padding: 12px; border: 1px solid #e2e8f0; font-weight: bold;">Premium</td>
-                    <td style="padding: 12px; border: 1px solid #e2e8f0;">Weekly 1-on-1 calls + community access</td>
-                    <td style="padding: 12px; border: 1px solid #e2e8f0; color: #2b6cb0; font-weight: bold;">$99/mo</td>
-                    <td style="padding: 12px; border: 1px solid #e2e8f0;">
-                        <!-- Link points to #premium-details down below -->
-                        <a href="#premium-details" style="background-color: #48bb78; color: white; padding: 6px 12px; text-decoration: none; border-radius: 4px; font-size: 14px; font-weight: bold; display: inline-block;">View Premium</a>
-                    </td>
-                </tr>
-            </table>
-
-            <!-- Simple Breakdown Details Box -->
-            <div style="margin-top: 30px; border-top: 2px dashed #cbd5e1; padding-top: 20px;">
-                <h3 style="color: #1a365d; margin-top: 0;">Plan Breakdown</h3>
-                
-                <!-- Basic Details Target -->
-                <div id="basic-details" style="background-color: #f7fafc; padding: 15px; margin-bottom: 15px; border-radius: 6px;">
-                    <h4 style="margin: 0 0 5px 0; color: #2b6cb0;">Basic Plan Details:</h4>
-                    <p style="margin: 0; font-size: 14px; line-height: 1.5;">Includes 24/7 view-only access to our pre-recorded course library. You can post questions in our monthly text-based Q&A dashboard. Ideal for self-paced learners.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 35px; align-items: center;">
+                <div style="flex: 1; min-width: 280px;">
+                    <p style="line-height: 1.8; margin-top: 0; color: var(--text-muted); font-size: 15px;">We provide personalized, one-on-one digital mentoring tailored to your specific financial and data tracking goals. Whether you want to master VLOOKUP, Power Query, or automated VBA macros, our expert coaches guide you step-by-step.</p>
                 </div>
-
-                <!-- Premium Details Target -->
-                <div id="premium-details" style="background-color: #f7fafc; padding: 15px; border-radius: 6px;">
-                    <h4 style="margin: 0 0 5px 0; color: #48bb78;">Premium Plan Details:</h4>
-                    <p style="margin: 0; font-size: 14px; line-height: 1.5;">Includes everything in Basic, plus a 45-minute live 1-on-1 video coaching session every single week. You also get invite-only access to our private community group.</p>
+                
+                <!-- Unbreakable Interactive CSS Excel Spreadsheet Representation Element -->
+                <div style="flex: 1; min-width: 280px; display: flex; justify-content: center;">
+                    <div class="excel-box">
+                        <div class="excel-bar">
+                            <span>📊 Analytics_Model.xlsx</span>
+                            <span>⚡ Live Macros</span>
+                        </div>
+                        <div class="excel-grid">
+                            <!-- Headers -->
+                            <div class="excel-cell excel-header-cell"></div>
+                            <div class="excel-cell excel-header-cell">A (Metrics)</div>
+                            <div class="excel-cell excel-header-cell">B (Raw)</div>
+                            <div class="excel-cell excel-header-cell">C (Formula)</div>
+                            
+                            <!-- Row 1 -->
+                            <div class="excel-cell excel-header-cell">1</div>
+                            <div class="excel-cell">Data Growth</div>
+                            <div class="excel-cell">1,420</div>
+                            <div class="excel-cell" style="color: #107c41; font-weight: bold;">=SUM(B2:B9)</div>
+                            
+                            <!-- Row 2 -->
+                            <div class="excel-cell excel-header-cell">2</div>
+                            <div class="excel-cell">VLOOKUP Tier</div>
+                            <div class="excel-cell">Active</div>
+                            <div class="excel-cell" style="background: rgba(16,124,65,0.1); color: #107c41; font-weight: bold;">True</div>
+                            
+                            <!-- Row 3 -->
+                            <div class="excel-cell excel-header-cell">3</div>
+                            <div class="excel-cell">Pivot Charts</div>
+                            <div class="excel-cell">Rendered</div>
+                            <div class="excel-cell" style="color: #2563eb;">⚡ Dynamic</div>
+                        </div>
+                        <!-- Mini Chart Graphic Built inside with CSS -->
+                        <div style="padding: 15px; background: rgba(0,0,0,0.01); border-top: 1px solid #cbd5e1; display: flex; align-items: flex-end; gap: 8px; height: 60px;">
+                            <div style="background: #107c41; width: 100%; height: 40%; border-radius: 3px 3px 0 0;"></div>
+                            <div style="background: #16a34a; width: 100%; height: 75%; border-radius: 3px 3px 0 0;"></div>
+                            <div style="background: #2563eb; width: 100%; height: 95%; border-radius: 3px 3px 0 0;"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
+        <!-- Services Section -->
+        <section id="programs">
+            <h2 style="color: #107c41; margin-top: 0; font-size: 26px; font-weight: 800;">Our Coaching Programs</h2>
+            
+            <div class="grid-container">
+                <div class="program-card">
+                    <div style="font-size: 48px; margin-bottom: 15px;">📈</div>
+                    <h3 style="margin: 0 0 10px 0; font-size: 19px; color: var(--text-main); font-weight: 700;">1-on-1 Formula Mastery</h3>
+                    <p style="margin: 0; font-size: 14px; color: var(--text-muted); line-height: 1.6;">Live screenshare video calls dissecting custom finance formulas and sheets.</p>
+                </div>
+
+                <div class="program-card">
+                    <div style="font-size: 48px; margin-bottom: 15px;">📊</div>
+                    <h3 style="margin: 0 0 10px 0; font-size: 19px; color: var(--text-main); font-weight: 700;">Dashboard Bootcamps</h3>
+                    <p style="margin: 0; font-size: 14px; color: var(--text-muted); line-height: 1.6;">Collaborative cohort design labs forming clean pivot graphs with peers.</p>
+                </div>
+
+                <div class="program-card">
+                    <div style="font-size: 48px; margin-bottom: 15px;">⚙️</div>
+                    <h3 style="margin: 0 0 10px 0; font-size: 19px; color: var(--text-main); font-weight: 700;">VBA & Macro Automations</h3>
+                    <p style="margin: 0; font-size: 14px; color: var(--text-muted); line-height: 1.6;">High-quality downloadable logic models and scripted file assets.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials">
+            <h2 style="color: #107c41; margin-top: 0; font-size: 26px; font-weight: 800;">Success Stories</h2>
+            <div style="background-color: rgba(16, 124, 65, 0.04); border: 1px dashed #107c41; padding: 25px; border-radius: 12px; font-style: italic; position: relative; margin-top: 20px;">
+                <p style="margin: 0; line-height: 1.7; color: var(--text-main); font-size: 15px; padding-left: 10px;">"The macro automation workflows totally reshaped our office tracking schedules. Getting a 1-on-1 audit on our budget sheets was worth every penny."</p>
+                <p style="margin: 15px 0 0 0; text-align: right; font-weight: bold; color: #107c41; font-style: normal; font-size: 14px;">— Sarah M., Data Analyst</p>
+            </div>
+        </section>
+
+        <!-- FAQs Section -->
+        <section id="faq">
+            <h2 style="color: #107c41; margin-top: 0; font-size: 26px; font-weight: 800;">Frequently Asked Questions</h2>
+            
+            <details style="padding: 18px; background: rgba(0, 0, 0, 0.01); border: 1px solid var(--card-border); border-radius: 12px; margin-bottom: 14px; cursor: pointer;">
+                <summary style="font-weight: 700; color: var(--text-main); font-size: 15px;">Do I need advanced computer skills?</summary>
+                <p style="margin: 14px 0 0 0; font-size: 14px; color: var(--text-muted); line-height: 1.6;">Not at all! We start right from the layout basics and comfortably build you up into building enterprise-grade data sheets.</p>
+            </details>
+
+            <details style="padding: 18px; background: rgba(0, 0, 0, 0.01); border: 1px solid var(--card-border); border-radius: 12px; cursor: pointer;">
+                <summary style="font-weight: 700; color: var(--text-main); font-size: 15px;">Are the curriculum workbooks free?</summary>
+                <p style="margin: 14px 0 0 0; font-size: 14px; color: var(--text-muted); line-height: 1.6;">Yes, all starter templates, automated files, and practice databases are included instantly with your registration tier.</p>
+            </details>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing">
+            <h2 style="color: #107c41; margin-top: 0; font-size: 26px; font-weight: 800;">Pricing Plans</h2>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 25px; background-color: var(--panel-bg); border-radius: 14px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.02);">
+                <tr style="background: linear-gradient(to right, #107c41, #1f4e37); color: #ffffff; text-align: left;">
+                    <th style="padding: 18px; font-size: 15px; font-weight: 600;">Plan</th>
+                    <th style="padding: 18px; font-size: 15px; font-weight: 600;">Features</th>
+                    <th style="padding: 18px; font-size: 15px; font-weight: 600;">Price</th>
+                    <th style="padding: 18px; font-size: 15px; font-weight: 600;">Action</th>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--card-border);">
+                    <td style="padding: 18px; font-weight: 700; font-size: 16px;">Basic</td>
+                    <td style="padding: 18px; color: var(--text-muted); font-size: 14px;">Access to formula video library + dashboard assets</td>
+                    <td style="padding: 18px; color: #107c41; font-weight: 700; font-size: 18px;">Rs 1999/mo</td>
+                    <td style="padding: 18px;">
+                        <a href="#basic-details" class="view-btn" style="background-color: #107c41; box-shadow: 0 4px 10px rgba(16,124,65,0.2);">View Basic</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 18px; font-weight: 700; font-size: 16px;">Premium</td>
+                    <td style="padding: 18px; color: var(--text-muted); font-size: 14px;">Weekly 1-on-1 screenshares + custom macro scripts</td>
+                    <td style="padding: 18px; color: var(--accent); font-weight: 700; font-size: 18px;">Rs 2999/mo</td>
+                    <td style="padding: 18px;">
+                        <a href="#premium-details" class="view-btn" style="background-color: #16a34a; box-shadow: 0 4px 10px rgba(22,163,74,0.2);">View Premium</a>
+                    </td>
+                </tr>
+            </table>
+
+            <div style="margin-top: 35px; border-top: 2px dashed var(--card-border); padding-top: 25px;">
+                <h3 style="color: var(--text-main); margin-top: 0; font-size: 19px; font-weight: 700;">Plan Details</h3>
+                
+                <div id="basic-details" style="background-color: var(--bg-body); padding: 22px; margin-bottom: 15px; border-radius: 12px; border: 1px solid var(--card-border);">
+                    <h4 style="margin: 0 0 10px 0; color: #107c41; font-size: 16px; font-weight: 700;">Basic Tier:</h4>
+                    <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--text-muted);">Includes 24/7 view-only access to our pre-recorded formula database. You can post logic questions in our monthly text-based Q&A dashboard. Ideal for self-paced learners.</p>
+                </div>
+
+                <div id="premium-details" style="background-color: var(--bg-body); padding: 22px; border-radius: 12px; border: 1px solid var(--card-border);">
+                    <h4 style="margin: 0 0 10px 0; color: #16a34a; font-size: 16px; font-weight: 700;">Premium Tier:</h4>
+                    <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--text-muted);">Includes everything in Basic, plus a 45-minute live 1-on-1 video coaching session every single week. You also get invite-only access to our private dashboard audit groups.</p>
+                </div>
+            </div>
+        </section>
 
         <!-- Registration Form -->
-        <section id="contact" style="background-color: #ffffff; padding: 25px; margin-bottom: 20px; border-radius: 8px;">
-            <h2 style="color: #1a365d; margin-top: 0;">Book a Free Consultation</h2>
-                   <!-- Registration Form -->
-        <section id="contact" style="background-color: #ffffff; padding: 25px; margin-bottom: 20px; border-radius: 8px;">
-            <h2 style="color: #1a365d; margin-top: 0;">Book a Free Consultation</h2>
+        <section id="contact">
+            <h2 style="color: #107c41; margin-top: 0; font-size: 26px; font-weight: 800;">Book a Free Consultation</h2>
             
-            <!-- Updated form tag with action attribute pointing to success.html -->
             <form action="success.html">
-                <p style="margin-bottom: 15px;">
-                    <label style="font-weight: bold; display: block; margin-bottom: 5px;">Full Name:</label>
-                    <input type="text" name="name" required style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; box-sizing: border-box;">
-                </p>
-                <p style="margin-bottom: 15px;">
-                    <label style="font-weight: bold; display: block; margin-bottom: 5px;">Email Address:</label>
-                    <input type="email" name="email" required style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; box-sizing: border-box;">
-                </p>
-                <p style="margin-bottom: 15px;">
-                    <label style="font-weight: bold; display: block; margin-bottom: 5px;">Select Your Goal:</label>
-                    <select name="goal" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; box-sizing: border-box; background-color: white;">
-                        <option value="career">Career Growth</option>
-                        <option value="tech">Tech & Coding</option>
-                        <option value="fitness">Health & Fitness</option>
-                    </select>
+                <p style="margin-bottom: 20px;">
+                    <label style="font-weight: 700; display: block; margin-bottom: 8px; font-size: 14px; color: var(--text-main);">Full Name:</label>
+                    <input type="text" name="name" required class="form-input" placeholder="John Doe">
                 </p>
                 <p style="margin-bottom: 20px;">
-                    <label style="font-weight: bold; display: block; margin-bottom: 5px;">Tell us about your challenges:</label>
-                    <textarea name="message" rows="4" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; box-sizing: border-box; resize: vertical;"></textarea>
+                    <label style="font-weight: 700; display: block; margin-bottom: 8px; font-size: 14px; color: var(--text-main);">Email Address:</label>
+                    <input type="email" name="email" required class="form-input" placeholder="john@example.com">
+                </p>
+                <p style="margin-bottom: 20px;">
+                    <label style="font-weight: 700; display: block; margin-bottom: 8px; font-size: 14px; color: var(--text-main);">Select Your Goal:</label>
+                    <select name="goal" class="form-input" style="cursor: pointer; height: 48px;">
+                        <option value="formulas">Excel Formula Mastery</option>
+                        <option value="dashboards">Pivot Charts & Dashboards</option>
+                        <option value="vba">VBA Automations & Macros</option>
+                    </select>
+                </p>
+                <p style="margin-bottom: 25px;">
+                    <label style="font-weight: 700; display: block; margin-bottom: 8px; font-size: 14px; color: var(--text-main);">Tell us about your challenges:</label>
+                    <textarea name="message" rows="4" class="form-input" placeholder="What spreadsheet features are you struggling with..."></textarea>
                 </p>
                 <p style="margin-top: 10px;">
-                    <!-- Clicking this button triggers the form action -->
-                    <input type="submit" value="Submit Request" style="background-color: #48bb78; color: white; padding: 12px 24px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; width: 100%; font-size: 16px;">
+                    <input type="submit" value="Submit Request" class="submit-btn">
                 </p>
             </form>
-            <p style="text-align: center; margin-top: 20px;">Or email us directly at: <a href="mailto:info@excelcoaching.com" style="color: #2b6cb0; font-weight: bold;">info@excelcoaching.com</a></p>
+            <p style="text-align: center; margin-top: 25px; color: var(--text-muted); font-size: 14px;">Or email us directly at: <a href="mailto:info@excelcoaching.com" style="color: #107c41; font-weight: bold; text-decoration: none;">info@excelcoaching.com</a></p>
         </section>
+
+    </main>
+
+    <!-- Footer Block -->
+    <footer style="text-align: center; color: var(--text-muted); padding: 40px 0; font-size: 14px;">
+        <p style="margin-bottom: 12px;">Follow us on social media:</p>
+        <p style="margin-bottom: 20px;">
+            <a href="https://twitter.com" target="_blank" style="color: #107c41; text-decoration: none; margin: 0 10px; font-weight: bold;">Twitter</a> | 
+            <a href="https://linkedin.com" target="_blank" style="color: #107c41; text-decoration: none; margin: 0 10px; font-weight: bold;">LinkedIn</a> | 
+            <a href="https://instagram.com" target="_blank" style="color: #107c41; text-decoration: none; margin: 0 10px; font-weight: bold;">Instagram</a>
+        </p>
+        <p style="margin: 0; font-size: 12px; color: var(--text-muted);">&copy; 2026 Excel Online Coaching. All rights reserved.</p>
+    </footer>
+
+    <!-- Light/Dark Mode JavaScript Toggle Script -->
+    <script>
+        function toggleTheme() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            const btn = document.getElementById('themeBtn');
+            
+            if (currentTheme === 'dark') {
+                document.body.removeAttribute('
