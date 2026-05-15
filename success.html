@@ -2,22 +2,172 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Request Submitted</title>
-</head>
-<body style="background-color: #f4f7f6; font-family: Arial, sans-serif; color: #333333; margin: 0; padding: 20px;">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Submitted Successfully</title>
+    
+    <style>
+        /* Exact matching design tokens and background mesh from index.html */
+        :root {
+            --bg-body: #f1f5f9;
+            --bg-pattern: 
+                radial-gradient(at 0% 0%, rgba(147, 197, 253, 0.4) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(196, 181, 253, 0.45) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(252, 165, 165, 0.3) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(110, 231, 183, 0.3) 0px, transparent 50%);
+            --panel-bg: rgba(255, 255, 255, 0.85);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --primary: #107c41; /* Excel Green */
+            --card-border: rgba(226, 232, 240, 0.8);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --radius: 16px;
+            --blur-strength: 12px;
+        }
 
-    <!-- Centered Success Card -->
-    <main style="max-width: 500px; margin: 80px auto; background-color: #ffffff; padding: 40px; border-radius: 8px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+        /* Dark Mode configurations matching the homepage */
+        [data-theme="dark"] {
+            --bg-body: #090d16;
+            --bg-pattern: 
+                radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.4) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(76, 29, 149, 0.45) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(153, 27, 27, 0.2) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(6, 78, 59, 0.2) 0px, transparent 50%);
+            --panel-bg: rgba(17, 24, 39, 0.8);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #4ade80;
+            --card-border: rgba(31, 41, 55, 0.7);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            background-color: var(--bg-body);
+            background-image: var(--bg-pattern);
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* Frosted Glass Success Container */
+        .success-card {
+            background-color: var(--panel-bg);
+            backdrop-filter: blur(var(--blur-strength));
+            -webkit-backdrop-filter: blur(var(--blur-strength));
+            max-width: 500px;
+            width: 100%;
+            padding: 45px 35px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--card-border);
+            text-align: center;
+            transition: background-color 0.4s ease, border-color 0.4s ease;
+        }
+
+        /* Unbreakable Animated Graphic Layout Element */
+        .success-icon {
+            display: inline-block;
+            background: linear-gradient(135deg, #107c41 0%, #1f4e37 100%);
+            color: white;
+            width: 80px;
+            height: 80px;
+            line-height: 85px;
+            border-radius: 50%;
+            font-size: 40px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 20px rgba(16, 124, 65, 0.2);
+        }
+
+        .return-btn {
+            background: linear-gradient(135deg, #107c41 0%, #1f4e37 100%);
+            color: white;
+            padding: 14px 28px;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 15px;
+            display: inline-block;
+            box-shadow: 0 8px 16px rgba(16, 124, 65, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+        }
+        .return-btn:hover {
+            opacity: 0.95;
+            box-shadow: 0 10px 20px rgba(16, 124, 65, 0.3);
+            transform: translateY(-1px);
+        }
+        .return-btn:active {
+            transform: translateY(1px);
+        }
+
+        .theme-toggle-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--panel-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            box-shadow: var(--shadow-lg);
+            transition: background 0.2s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Theme Switcher to match homepage controls -->
+    <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn">🌙 Dark Mode</button>
+
+    <!-- Main Content Presentation Layout Card -->
+    <main class="success-card">
         
-        <!-- Big Green Checkmark Icon using HTML code -->
-        <div style="font-size: 60px; color: #48bb78; margin-bottom: 20px;">&#10004;</div>
+        <!-- Guaranteed Unbreakable Custom Rendered Visual Graphic -->
+        <div class="success-icon">✓</div>
         
-        <h1 style="color: #1a365d; margin-top: 0; font-size: 28px;">Request Submitted Successfully!</h1>
-        <p style="color: #4a5568; line-height: 1.6; font-size: 16px; margin-bottom: 30px;">Thank you for reaching out. Our team will review your goals and contact you shortly.</p>
+        <h1 style="color: var(--text-main); margin: 0 0 12px 0; font-size: 28px; font-weight: 800; letter-spacing: -0.5px;">
+            Request Submitted!
+        </h1>
         
-        <!-- Link to go back to the home page -->
-        <a href="index.html" style="background-color: #2b6cb0; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; font-weight: bold; display: inline-block; font-size: 14px;">Return to Home</a>
+        <p style="color: var(--text-muted); line-height: 1.7; font-size: 15px; margin: 0 0 30px 0;">
+            Thank you for reaching out to Excel Online Coaching. Your parameters have been saved, and an analysis expert will contact you shortly.
+        </p>
+        
+        <!-- Interactive Navigation Anchor back to index.html -->
+        <a href="index.html" class="return-btn">Return to Dashboard</a>
+        
     </main>
 
+    <!-- Theme Switcher JavaScript Logic Sequence -->
+    <script>
+        function toggleTheme() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            const btn = document.getElementById('themeBtn');
+            
+            if (currentTheme === 'dark') {
+                document.body.removeAttribute('data-theme');
+                btn.innerHTML = "🌙 Dark Mode";
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                btn.innerHTML = "☀️ Light Mode";
+            }
+        }
+        
+        // Automated script to check if parent or system preference is already dark mode layout
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.setAttribute('data-theme', 'dark');
+            document.getElementById('themeBtn').innerHTML = "☀️ Light Mode";
+        }
+    </script>
 </body>
 </html>
